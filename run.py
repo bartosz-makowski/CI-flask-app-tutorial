@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -28,8 +28,11 @@ def about_member(member_name):
     return render_template("member.html", member=member) 
 
 
-@app.route("/info")
+@app.route("/info", methods=["GET", "POST"])
 def info():
+    if request.method == "POST":
+        print(request.form.get("name"))
+        print(request.form["email"])
     return render_template("info.html", page_title="Info")
 
 @app.route("/careers")
